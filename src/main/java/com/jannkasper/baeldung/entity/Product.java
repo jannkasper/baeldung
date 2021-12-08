@@ -1,5 +1,6 @@
 package com.jannkasper.baeldung.entity;
 
+import com.jannkasper.baeldung.entity.supplier.database.Supplier;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

@@ -1,5 +1,7 @@
-package com.jannkasper.baeldung.entity;
+package com.jannkasper.baeldung.entity.supplier.database;
 
+import com.jannkasper.baeldung.entity.AbstractNameEntity;
+import com.jannkasper.baeldung.entity.Address;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
