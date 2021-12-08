@@ -1,16 +1,21 @@
 package com.jannkasper.baeldung.entity.supplier.database;
 
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public class SupplierRepository extends HibernateDaoSupport {
+@RequiredArgsConstructor
+public class SupplierRepository {
 
-    public Integer create(Supplier entity) {
-        if (entity == null) {
-            throw new NullPointerException();
-        }
+    private final SupplierJpaRepository repository;
 
-        return (Integer) this.getHibernateTemplate().save(entity);
+    public Optional<Supplier> findById(Integer integer) {
+        return repository.findById(integer);
+    }
+
+    public Supplier save(Supplier entity) {
+        return repository.save(entity);
     }
 }

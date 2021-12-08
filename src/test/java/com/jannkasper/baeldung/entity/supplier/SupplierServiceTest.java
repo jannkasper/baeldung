@@ -2,6 +2,7 @@ package com.jannkasper.baeldung.entity.supplier;
 
 import com.jannkasper.baeldung.entity.Address;
 import com.jannkasper.baeldung.entity.supplier.database.Supplier;
+import com.jannkasper.baeldung.entity.supplier.database.SupplierJpaRepository;
 import com.jannkasper.baeldung.entity.supplier.database.SupplierRepository;
 import com.jannkasper.baeldung.entity.supplier.service.SupplierService;
 import org.junit.Assert;
@@ -20,13 +21,12 @@ public class SupplierServiceTest {
 
     private SupplierService instance;
     private SupplierRepository supplierRepository;
-    private HibernateTemplate hibernateTemplateMock;
+    private SupplierJpaRepository supplierJpaRepository;
 
     @Before
     public void before() {
-        this.hibernateTemplateMock = mock(HibernateTemplate.class);
-        this.supplierRepository = new SupplierRepository();
-        this.supplierRepository.setHibernateTemplate(hibernateTemplateMock);
+        this.supplierJpaRepository = mock(SupplierJpaRepository.class);
+        this.supplierRepository = new SupplierRepository(supplierJpaRepository);
 
         this.instance = new SupplierService(supplierRepository);
     }
@@ -51,7 +51,7 @@ public class SupplierServiceTest {
 
         // Then
         ArgumentCaptor<Supplier> argument = ArgumentCaptor.forClass(Supplier.class);
-        verify(this.hibernateTemplateMock).save(argument.capture());
+        verify(this.supplierJpaRepository).save(argument.capture());
         Assert.assertEquals(entity, (argument.getValue()));
     }
 
